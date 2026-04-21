@@ -405,21 +405,25 @@ function App() {
                 key={member.name}
                 className="rounded-[45px] border border-[#191A23] bg-white p-8 shadow-[0_5px_0_0_#191A23] md:min-h-[331px] md:p-10"
               >
-                <div className="mb-7 border-b border-[#191A23] pb-7">
-                  <div className="grid grid-cols-[98px_1fr_34px] items-start gap-5">
-                    <img src={member.photo} alt={member.name} className="h-[98px] w-[98px] shrink-0" />
-                    <div>
-                      <h3 className="text-[20px] font-medium leading-[1.2]">{member.name}</h3>
-                      <p className="text-lg leading-[1.35]">{member.role}</p>
-                    </div>
-                    <img
-                      src="/assets/Team-linkedin-logo.svg"
-                      alt=""
-                      className="mt-1 h-[34px] w-[34px] justify-self-end"
-                    />
+                {/* Altura fixa do bloco superior (~103px no Figma) para alinhar a linha entre cards da mesma linha */}
+                <div className="mb-7 grid h-[103px] grid-cols-[98px_1fr_34px] items-start gap-x-5">
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="h-[98px] w-[98px] shrink-0 self-end"
+                  />
+                  <div className="flex min-h-0 flex-col justify-end overflow-hidden">
+                    <h3 className="text-[20px] font-medium leading-[1.2]">{member.name}</h3>
+                    <p className="line-clamp-3 text-lg leading-[1.35]">{member.role}</p>
                   </div>
+                  <img
+                    src="/assets/Team-linkedin-logo.svg"
+                    alt=""
+                    className="h-[34px] w-[34px] justify-self-end"
+                  />
                 </div>
-                <p className="text-lg leading-[1.4]">{member.text}</p>
+                <div className="border-b border-[#191A23]" />
+                <p className="mt-7 text-lg leading-[1.4]">{member.text}</p>
               </article>
             ))}
           </div>
