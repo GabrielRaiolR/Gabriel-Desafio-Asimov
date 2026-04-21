@@ -10,4 +10,4 @@ Parte 2 (seção autoral): implementar/publicar na pasta `part-02` conforme o en
 
 Repositório GitHub: [[adicionar link](https://github.com/GabrielRaiolR/Gabriel-Desafio-Asimov)]
 Deploy Parte 1: [[adicionar link]](https://clonepositivus.netlify.app/)
-Deploy Parte 2: [adicionar link].
+Deploy Parte 2: [[adicionar link](https://python-hero.netlify.app/)].
