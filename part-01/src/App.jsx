@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const navItems = ["About us", "Services", "Use Cases", "Pricing", "Blog"];
@@ -89,7 +89,19 @@ function App() {
 
   const [openStepIndex, setOpenStepIndex] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [testimonialsIsMdUp, setTestimonialsIsMdUp] = useState(
+    typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 768px)").matches,
+  );
   const [contactType, setContactType] = useState("sayHi");
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setTestimonialsIsMdUp(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const testimonials = [
     {
@@ -489,42 +501,82 @@ function App() {
           </div>
           <div className="overflow-hidden rounded-[45px] bg-[#191A23] px-5 py-10 text-white md:px-0 md:py-[84px]">
             <div
-              className="mb-14 flex gap-[50px] transition-transform duration-500 ease-out md:mb-[124px]"
-              style={{
-                transform: `translateX(calc(${-testimonialIndex * 656}px + 317px))`,
-              }}
+              className={`mb-14 flex transition-transform duration-500 ease-out md:mb-[124px] ${
+                testimonialsIsMdUp ? "gap-[50px]" : "gap-0"
+              }`}
+              style={
+                testimonialsIsMdUp
+                  ? {
+                      transform: `translateX(calc(${-testimonialIndex * 656}px + 317px))`,
+                    }
+                  : {
+                      width: `${testimonials.length * 100}%`,
+                      transform: `translateX(-${(100 / testimonials.length) * testimonialIndex}%)`,
+                    }
+              }
             >
               {testimonials.map((testimonial) => (
-                <article key={testimonial.name} className="w-[606px] shrink-0">
-                  <div className="relative mb-5 h-[266px] w-[606px]">
+                <article
+                  key={testimonial.name}
+                  className={
+                    testimonialsIsMdUp
+                      ? "w-[606px] shrink-0"
+                      : "shrink-0 grow-0"
+                  }
+                  style={
+                    testimonialsIsMdUp
+                      ? undefined
+                      : { width: `${100 / testimonials.length}%` }
+                  }
+                >
+                  <div
+                    className={`relative mb-5 ${
+                      testimonialsIsMdUp
+                        ? "h-[266px] w-[606px]"
+                        : "aspect-[606/266] w-full max-w-full"
+                    }`}
+                  >
                     <img
                       src="/assets/Testimonial-Bubble.svg"
                       alt=""
-                      className="absolute inset-0 h-full w-full"
+                      className="absolute inset-0 h-full w-full object-fill"
                     />
-                    <p className="absolute left-[52px] top-12 w-[502px] text-lg leading-[1.4]">
+                    <p
+                      className={`absolute text-white ${
+                        testimonialsIsMdUp
+                          ? "left-[52px] top-12 w-[502px] text-lg leading-[1.4]"
+                          : "left-[10%] right-[10%] top-[15%] text-sm leading-snug sm:text-base"
+                      }`}
+                    >
                       &quot;{testimonial.quote}&quot;
                     </p>
                   </div>
-                  <div className="pl-20">
-                    <p className="mb-1 text-[20px] font-medium leading-normal text-[#B9FF66]">
+                  <div
+                    className={
+                      testimonialsIsMdUp ? "pl-20" : "pl-4 sm:pl-10 md:pl-20"
+                    }
+                  >
+                    <p className="mb-1 text-base font-medium leading-normal text-[#B9FF66] sm:text-[18px] md:text-[20px]">
                       {testimonial.name}
                     </p>
-                    <p className="text-lg leading-normal">{testimonial.role}</p>
+                    <p className="text-sm leading-normal sm:text-base md:text-lg">
+                      {testimonial.role}
+                    </p>
                   </div>
                 </article>
               ))}
             </div>
-            <div className="mx-auto flex w-full max-w-[564px] items-center justify-between">
+            <div className="mx-auto flex w-full max-w-[564px] items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() =>
-                  setTestimonialIndex((prev) =>
-                    prev === 0 ? testimonials.length - 1 : prev - 1,
-                  )
+                  setTestimonialIndex((prev) => Math.max(0, prev - 1))
                 }
                 aria-label="Depoimento anterior"
-                className="transition-transform duration-300 hover:-translate-x-1"
+                disabled={testimonialIndex === 0}
+                className={`transition duration-300 hover:-translate-x-1 disabled:pointer-events-none ${
+                  testimonialIndex === 0 ? "opacity-30" : "opacity-100"
+                }`}
               >
                 <img
                   src="/assets/Testimonial-arrow.svg"
@@ -532,7 +584,7 @@ function App() {
                   className="h-5 w-5 rotate-180"
                 />
               </button>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-3 sm:gap-5">
                 {testimonials.map((testimonial, index) => (
                   <button
                     key={testimonial.name}
@@ -543,8 +595,8 @@ function App() {
                     <img
                       src={
                         testimonialIndex === index
-                          ? "/assets/Testimonial-Star-dot-next.svg"
-                          : "/assets/Testimonial-Star-dot-open.svg"
+                          ? "/assets/Testimonial-Star-dot-open.svg"
+                          : "/assets/Testimonial-Star-dot-next.svg"
                       }
                       alt=""
                       className="h-[14px] w-[14px]"
@@ -556,11 +608,16 @@ function App() {
                 type="button"
                 onClick={() =>
                   setTestimonialIndex((prev) =>
-                    prev === testimonials.length - 1 ? 0 : prev + 1,
+                    Math.min(testimonials.length - 1, prev + 1),
                   )
                 }
                 aria-label="Próximo depoimento"
-                className="transition-transform duration-300 hover:translate-x-1"
+                disabled={testimonialIndex === testimonials.length - 1}
+                className={`transition duration-300 hover:translate-x-1 disabled:pointer-events-none ${
+                  testimonialIndex === testimonials.length - 1
+                    ? "opacity-30"
+                    : "opacity-100"
+                }`}
               >
                 <img
                   src="/assets/Testimonial-arrow.svg"
