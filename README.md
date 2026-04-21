@@ -8,6 +8,6 @@ Parte 1 (Figma para código): implementada na pasta `part-01`.
 
 Parte 2 (seção autoral): implementar/publicar na pasta `part-02` conforme o enunciado.
 
-Repositório GitHub: [adicionar link]
+Repositório GitHub: [[adicionar link](https://github.com/GabrielRaiolR/Gabriel-Desafio-Asimov)]
 Deploy Parte 1: [adicionar link]
 Deploy Parte 2: [adicionar link].
