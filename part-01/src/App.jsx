@@ -184,23 +184,23 @@ function App() {
             alt="Positivus"
             className="h-7 w-auto md:h-9"
           />
-          <div className="hidden items-center gap-10 md:flex">
+          <div className="hidden items-center gap-6 md:flex lg:gap-10">
             <nav>
-              <ul className="flex items-center gap-8">
+              <ul className="flex items-center gap-4 lg:gap-8">
                 {navItems.map((item) => (
                   <li key={item}>
                     <a
                       href="#"
-                      className="group relative text-xl font-normal text-[#191A23]"
+                      className="group relative whitespace-nowrap text-lg font-normal text-[#191A23] lg:text-xl"
                     >
                       {item}
-                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-[#B9FF66] transition-all duration-300 group-hover:w-full" />
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-[#191A23] transition-all duration-300 group-hover:w-full" />
                     </a>
                   </li>
                 ))}
               </ul>
             </nav>
-            <button className="rounded-[14px] border border-[#191A23] px-[35px] py-5 text-xl font-medium transition hover:bg-[#191A23] hover:text-white">
+            <button className="rounded-[14px] border border-[#191A23] px-6 py-3 text-base font-medium transition hover:bg-[#191A23] hover:text-white lg:px-[35px] lg:py-5 lg:text-xl">
               Request a quote
             </button>
           </div>
