@@ -314,8 +314,8 @@ function App() {
         </section>
 
         <section className="animate-section mb-10 rounded-[45px] bg-[#F3F3F3] px-8 py-10 md:mb-20 md:px-[60px] md:py-[40px]">
-          <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
-            <div>
+          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto] md:gap-x-10 md:gap-y-0 lg:gap-x-14">
+            <div className="min-w-0">
               <h3 className="mb-6 text-3xl font-medium md:text-[30px]">
                 Let&apos;s make things happen
               </h3>
@@ -327,11 +327,15 @@ function App() {
                 Get your free proposal
               </button>
             </div>
-            <img
-              src="/assets/CTO-Ilustration.svg"
-              alt=""
-              className="mx-auto hidden w-[360px] md:block"
-            />
+            <div className="hidden shrink-0 md:block md:self-center">
+              <img
+                src="/assets/CTO-Ilustration.svg"
+                alt=""
+                width={494}
+                height={395}
+                className="block h-[335px] w-[418px] max-w-none lg:h-[355px] lg:w-[444px]"
+              />
+            </div>
           </div>
         </section>
 
