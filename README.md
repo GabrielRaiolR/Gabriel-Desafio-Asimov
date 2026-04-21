@@ -10,4 +10,4 @@ Parte 2 (seção autoral): implementar/publicar na pasta `part-02` conforme o en
 
 Repositório GitHub: [adicionar link]
 Deploy Parte 1: [adicionar link]
-Deploy Parte 2: [adicionar link]
+Deploy Parte 2: [adicionar link].
