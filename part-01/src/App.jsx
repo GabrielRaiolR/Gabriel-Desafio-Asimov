@@ -89,6 +89,7 @@ function App() {
 
   const [openStepIndex, setOpenStepIndex] = useState(0)
   const [testimonialIndex, setTestimonialIndex] = useState(0)
+  const [contactType, setContactType] = useState('sayHi')
 
   const testimonials = [
     {
@@ -520,56 +521,85 @@ function App() {
         </section>
 
         <section className="animate-section mb-10 md:mb-20">
+          {/* Heading — Figma 341:568: gap 40px entre título e subtítulo */}
           <div className="mb-8 flex flex-col gap-5 md:mb-20 md:flex-row md:items-start md:gap-10">
-            <h2 className="w-fit rounded-[7px] bg-[#B9FF66] px-[7px] py-1 text-4xl font-medium leading-none">
+            <h2 className="w-fit rounded-[7px] bg-[#B9FF66] px-[7px] py-1 text-4xl font-medium leading-none md:text-[40px]">
               Contact Us
             </h2>
-            <p className="max-w-[323px] text-lg leading-[1.45]">
+            <p className="max-w-[323px] text-lg leading-normal text-[#191A23]">
               Connect with Us: Let&apos;s Discuss Your Digital Marketing Needs
             </p>
           </div>
-          <div className="relative overflow-hidden rounded-[45px] bg-[#F3F3F3] px-8 py-10 md:px-[100px] md:py-[60px]">
-            <div className="relative z-10 max-w-[556px]">
-              <div className="mb-10 flex gap-[35px]">
-                <label className="flex items-center gap-3 text-lg">
+          {/* Figma 341:623 — card único 1240×773, ilustração no canto com overflow do próprio card */}
+          <div className="relative w-full max-w-[1240px] overflow-hidden rounded-[45px] bg-[#F3F3F3] px-8 py-10 md:min-h-[773px] md:px-[100px] md:pb-[80px] md:pt-[60px] lg:mx-auto">
+            <div className="relative z-10 flex w-full max-w-[556px] flex-col gap-10">
+              {/* Figma: anel preto fino; selecionado = disco verde central com folga; não selecionado = vazio */}
+              <div className="flex gap-[35px]">
+                <label className="flex cursor-pointer items-center gap-x-[14px] text-lg font-semibold leading-normal text-black">
                   <input
                     type="radio"
                     name="contactType"
-                    defaultChecked
-                    className="h-7 w-7 accent-[#B9FF66]"
+                    checked={contactType === 'sayHi'}
+                    onChange={() => setContactType('sayHi')}
+                    className="sr-only appearance-none [-webkit-appearance:none]"
                   />
-                  Say Hi
+                  <span
+                    className="flex size-7 shrink-0 items-center justify-center rounded-full border border-solid border-black bg-white"
+                    aria-hidden
+                  >
+                    {contactType === 'sayHi' ? (
+                      <span className="size-4 shrink-0 rounded-full bg-[#B9FF66]" />
+                    ) : null}
+                  </span>
+                  <span>Say Hi</span>
                 </label>
-                <label className="flex items-center gap-3 text-lg">
-                  <input type="radio" name="contactType" className="h-7 w-7 accent-[#B9FF66]" />
-                  Get a Quote
+                <label className="flex cursor-pointer items-center gap-x-[14px] text-lg font-semibold leading-normal text-black">
+                  <input
+                    type="radio"
+                    name="contactType"
+                    checked={contactType === 'quote'}
+                    onChange={() => setContactType('quote')}
+                    className="sr-only appearance-none [-webkit-appearance:none]"
+                  />
+                  <span
+                    className="flex size-7 shrink-0 items-center justify-center rounded-full border border-solid border-black bg-white"
+                    aria-hidden
+                  >
+                    {contactType === 'quote' ? (
+                      <span className="size-4 shrink-0 rounded-full bg-[#B9FF66]" />
+                    ) : null}
+                  </span>
+                  <span>Get a Quote</span>
                 </label>
               </div>
-              <form className="space-y-[25px]">
+              <form className="flex w-full flex-col gap-[25px]">
                 <label className="block">
-                  <span className="mb-1 block text-base leading-7">Name</span>
+                  <span className="mb-[5px] block text-base leading-7 text-[#191A23]">Name</span>
                   <input
-                    className="h-[59px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
+                    className="h-[59px] w-full rounded-[14px] border border-solid border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
                     type="text"
                     placeholder="Name"
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1 block text-base leading-7">Email*</span>
+                  <span className="mb-[5px] block text-base leading-7 text-[#191A23]">Email*</span>
                   <input
-                    className="h-[59px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
+                    className="h-[59px] w-full rounded-[14px] border border-solid border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
                     type="email"
                     placeholder="Email"
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1 block text-base leading-7">Message*</span>
+                  <span className="mb-[5px] block text-base leading-7 text-[#191A23]">Message*</span>
                   <textarea
-                    className="h-[190px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] py-[18px] text-lg placeholder:text-[#898989]"
+                    className="h-[190px] w-full resize-y rounded-[14px] border border-solid border-[#191A23] bg-white px-[30px] py-[18px] text-lg placeholder:text-[#898989]"
                     placeholder="Message"
                   />
                 </label>
-                <button className="h-[68px] w-full rounded-[14px] bg-[#191A23] px-8 text-xl font-normal text-white transition hover:opacity-90">
+                <button
+                  type="submit"
+                  className="h-[68px] w-full rounded-[14px] bg-[#191A23] px-[35px] py-5 text-center text-xl font-normal leading-7 text-white transition hover:opacity-90"
+                >
                   Send Message
                 </button>
               </form>
@@ -577,7 +607,9 @@ function App() {
             <img
               src="/assets/Contact-Us-Illustration.svg"
               alt=""
-              className="absolute right-[-220px] top-1/2 hidden w-[692px] -translate-y-1/2 md:block"
+              width={692}
+              height={649}
+              className="pointer-events-none absolute top-1/2 right-0 z-0 hidden h-[648px] w-[691px] max-w-none -translate-y-1/2 translate-x-1/2 object-contain md:block"
             />
           </div>
         </section>
