@@ -277,7 +277,7 @@ function App() {
             {serviceCards.map((card) => (
               <article
                 key={card.title.join("-")}
-                className={`flex min-h-[310px] flex-col justify-between rounded-[45px] border p-8 shadow-[0_5px_0_0_#191A23] md:p-[50px] ${cardClasses[card.variant]}`}
+                className={`group flex min-h-[310px] flex-col justify-between rounded-[45px] border p-8 shadow-[0_5px_0_0_#191A23] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_10px_0_0_#191A23] md:p-[50px] ${cardClasses[card.variant]}`}
               >
                 <div>
                   {card.title.map((line) => (
@@ -298,7 +298,7 @@ function App() {
                     <img
                       src={card.arrow}
                       alt=""
-                      className="h-[41px] w-[41px]"
+                      className="h-[41px] w-[41px] transition-transform duration-300 ease-out group-hover:translate-x-1"
                     />
                     <span className="hidden md:inline">Learn more</span>
                   </a>
