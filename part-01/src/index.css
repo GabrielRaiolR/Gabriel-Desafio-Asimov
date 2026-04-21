@@ -10,7 +10,7 @@
 
 :root {
   font-family: "Space Grotesk", "Space Grotesk Local", sans-serif;
-  color: #191A23;
+  color: #191a23;
   background-color: #fff;
 }
 
@@ -18,8 +18,17 @@
   box-sizing: border-box;
 }
 
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
+}
+
+#root {
+  min-height: 100%;
 }
 
 .logo-luminosity {
