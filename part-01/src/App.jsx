@@ -88,6 +88,40 @@ function App() {
   ]
 
   const [openStepIndex, setOpenStepIndex] = useState(0)
+  const [testimonialIndex, setTestimonialIndex] = useState(0)
+
+  const testimonials = [
+    {
+      name: 'John Smith',
+      role: 'Marketing Director at XYZ Corp',
+      quote:
+        'We have been working with Positivus for the past year and have seen a significant increase in website traffic and leads as a result of their efforts. The team is professional, responsive, and truly cares about the success of our business.',
+    },
+    {
+      name: 'Sarah Johnson',
+      role: 'Head of Growth at Nova Retail',
+      quote:
+        'Positivus helped us build a high-performing paid media strategy in just a few weeks. Our cost per acquisition dropped while qualified leads increased, and the reporting process is always clear and actionable.',
+    },
+    {
+      name: 'Michael Lee',
+      role: 'Co-Founder at BrightLabs',
+      quote:
+        'From SEO planning to content execution, the team brought structure and consistency to our marketing efforts. We now rank better for priority keywords and our inbound pipeline is much stronger.',
+    },
+    {
+      name: 'Emily Carter',
+      role: 'CMO at UrbanNest',
+      quote:
+        'What impressed us most was the speed of optimization. They constantly test, learn, and improve campaigns. In less than a quarter, we saw a major uplift in conversions across channels.',
+    },
+    {
+      name: 'David Kim',
+      role: 'Founder at ScaleForge',
+      quote:
+        'Positivus feels like an extension of our internal team. Communication is fast, strategy is grounded in data, and creative recommendations are always aligned with our business goals.',
+    },
+  ]
 
   const teamMembers = [
     {
@@ -289,7 +323,7 @@ function App() {
                     <img
                       src="/assets/Case-Study-Arrow.svg"
                       alt=""
-                      className="h-5 w-5 transition-transform duration-300 ease-out group-hover:rotate-[-12deg] group-hover:translate-x-0.5"
+                      className="h-5 w-5 transition-transform duration-300 ease-out group-hover:-rotate-12 group-hover:translate-x-0.5"
                     />
                   </a>
                 </article>
@@ -369,17 +403,21 @@ function App() {
             {teamMembers.map((member) => (
               <article
                 key={member.name}
-                className="rounded-[45px] border border-[#191A23] bg-white p-8 shadow-[0_5px_0_0_#191A23] md:p-10"
+                className="rounded-[45px] border border-[#191A23] bg-white p-8 shadow-[0_5px_0_0_#191A23] md:min-h-[331px] md:p-10"
               >
-                <div className="mb-7 flex items-end justify-between border-b border-[#191A23] pb-7">
-                  <div className="flex items-end gap-5">
-                    <img src={member.photo} alt={member.name} className="h-[98px] w-[98px]" />
+                <div className="mb-7 border-b border-[#191A23] pb-7">
+                  <div className="grid grid-cols-[98px_1fr_34px] items-start gap-5">
+                    <img src={member.photo} alt={member.name} className="h-[98px] w-[98px] shrink-0" />
                     <div>
-                      <h3 className="text-[20px] font-medium">{member.name}</h3>
-                      <p className="text-lg">{member.role}</p>
+                      <h3 className="text-[20px] font-medium leading-[1.2]">{member.name}</h3>
+                      <p className="text-lg leading-[1.35]">{member.role}</p>
                     </div>
+                    <img
+                      src="/assets/Team-linkedin-logo.svg"
+                      alt=""
+                      className="mt-1 h-[34px] w-[34px] justify-self-end"
+                    />
                   </div>
-                  <img src="/assets/Team-linkedin-logo.svg" alt="" className="h-[34px] w-[34px]" />
                 </div>
                 <p className="text-lg leading-[1.4]">{member.text}</p>
               </article>
@@ -402,64 +440,149 @@ function App() {
               about Our Digital Marketing Services
             </p>
           </div>
-          <div className="rounded-[45px] bg-[#191A23] px-8 py-12 text-white md:px-[76px] md:py-[84px]">
-            <div className="mx-auto max-w-[606px]">
-              <img src="/assets/Testimonial-Bubble.svg" alt="" className="mb-10 w-full" />
-              <p className="mb-2 text-xl font-medium text-[#B9FF66]">John Smith</p>
-              <p className="mb-10 text-lg">Marketing Director at XYZ Corp</p>
-              <div className="flex items-center justify-between">
+          <div className="overflow-hidden rounded-[45px] bg-[#191A23] px-5 py-10 text-white md:px-0 md:py-[84px]">
+            <div
+              className="mb-14 flex gap-[50px] transition-transform duration-500 ease-out md:mb-[124px]"
+              style={{ transform: `translateX(calc(${-testimonialIndex * 656}px + 317px))` }}
+            >
+              {testimonials.map((testimonial) => (
+                <article key={testimonial.name} className="w-[606px] shrink-0">
+                  <div className="relative mb-5 h-[266px] w-[606px]">
+                    <img
+                      src="/assets/Testimonial-Bubble.svg"
+                      alt=""
+                      className="absolute inset-0 h-full w-full"
+                    />
+                    <p className="absolute left-[52px] top-12 w-[502px] text-lg leading-[1.4]">
+                      &quot;{testimonial.quote}&quot;
+                    </p>
+                  </div>
+                  <div className="pl-20">
+                    <p className="mb-1 text-[20px] font-medium leading-normal text-[#B9FF66]">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-lg leading-normal">{testimonial.role}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="mx-auto flex w-full max-w-[564px] items-center justify-between">
+              <button
+                type="button"
+                onClick={() =>
+                  setTestimonialIndex((prev) =>
+                    prev === 0 ? testimonials.length - 1 : prev - 1,
+                  )
+                }
+                aria-label="Depoimento anterior"
+                className="transition-transform duration-300 hover:-translate-x-1"
+              >
                 <img src="/assets/Testimonial-arrow.svg" alt="" className="h-5 w-5 rotate-180" />
-                <div className="flex items-center gap-5">
-                  <img src="/assets/Testimonial-Star-dot-open.svg" alt="" className="h-4 w-4" />
-                  <img src="/assets/Testimonial-Star-dot-next.svg" alt="" className="h-4 w-4" />
-                  <img src="/assets/Testimonial-Star-dot-open.svg" alt="" className="h-4 w-4" />
-                  <img src="/assets/Testimonial-Star-dot-open.svg" alt="" className="h-4 w-4" />
-                  <img src="/assets/Testimonial-Star-dot-open.svg" alt="" className="h-4 w-4" />
-                </div>
-                <img src="/assets/Testimonial-arrow.svg" alt="" className="h-5 w-5" />
+              </button>
+              <div className="flex items-center gap-5">
+                {testimonials.map((testimonial, index) => (
+                  <button
+                    key={testimonial.name}
+                    type="button"
+                    onClick={() => setTestimonialIndex(index)}
+                    aria-label={`Ir para depoimento ${index + 1}`}
+                  >
+                    <img
+                      src={
+                        testimonialIndex === index
+                          ? '/assets/Testimonial-Star-dot-next.svg'
+                          : '/assets/Testimonial-Star-dot-open.svg'
+                      }
+                      alt=""
+                      className="h-[14px] w-[14px]"
+                    />
+                  </button>
+                ))}
               </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setTestimonialIndex((prev) =>
+                    prev === testimonials.length - 1 ? 0 : prev + 1,
+                  )
+                }
+                aria-label="Próximo depoimento"
+                className="transition-transform duration-300 hover:translate-x-1"
+              >
+                <img src="/assets/Testimonial-arrow.svg" alt="" className="h-5 w-5" />
+              </button>
             </div>
           </div>
         </section>
 
-        <section className="animate-section mb-10 rounded-[45px] bg-[#F3F3F3] px-8 py-10 md:mb-20 md:px-[100px] md:py-[60px]">
-          <div className="mb-10 flex gap-8">
-            <label className="flex items-center gap-3 text-lg">
-              <input type="radio" name="contactType" defaultChecked className="accent-[#B9FF66]" />
-              Say Hi
-            </label>
-            <label className="flex items-center gap-3 text-lg">
-              <input type="radio" name="contactType" className="accent-[#B9FF66]" />
-              Get a Quote
-            </label>
+        <section className="animate-section mb-10 md:mb-20">
+          <div className="mb-8 flex flex-col gap-5 md:mb-20 md:flex-row md:items-start md:gap-10">
+            <h2 className="w-fit rounded-[7px] bg-[#B9FF66] px-[7px] py-1 text-4xl font-medium leading-none">
+              Contact Us
+            </h2>
+            <p className="max-w-[323px] text-lg leading-[1.45]">
+              Connect with Us: Let&apos;s Discuss Your Digital Marketing Needs
+            </p>
           </div>
-          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
-            <form className="space-y-6">
-              <label className="block">
-                <span className="mb-2 block text-base">Name</span>
-                <input className="w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] py-[18px] text-lg" type="text" placeholder="Name" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-base">Email*</span>
-                <input className="w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] py-[18px] text-lg" type="email" placeholder="Email" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-base">Message*</span>
-                <textarea className="h-[190px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] py-[18px] text-lg" placeholder="Message" />
-              </label>
-              <button className="w-full rounded-[14px] bg-[#191A23] px-8 py-5 text-xl font-medium text-white transition hover:opacity-90">
-                Send Message
-              </button>
-            </form>
-            <img src="/assets/Contact-Us-Illustration.svg" alt="" className="hidden w-[350px] md:block" />
+          <div className="relative overflow-hidden rounded-[45px] bg-[#F3F3F3] px-8 py-10 md:px-[100px] md:py-[60px]">
+            <div className="relative z-10 max-w-[556px]">
+              <div className="mb-10 flex gap-[35px]">
+                <label className="flex items-center gap-3 text-lg">
+                  <input
+                    type="radio"
+                    name="contactType"
+                    defaultChecked
+                    className="h-7 w-7 accent-[#B9FF66]"
+                  />
+                  Say Hi
+                </label>
+                <label className="flex items-center gap-3 text-lg">
+                  <input type="radio" name="contactType" className="h-7 w-7 accent-[#B9FF66]" />
+                  Get a Quote
+                </label>
+              </div>
+              <form className="space-y-[25px]">
+                <label className="block">
+                  <span className="mb-1 block text-base leading-7">Name</span>
+                  <input
+                    className="h-[59px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
+                    type="text"
+                    placeholder="Name"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1 block text-base leading-7">Email*</span>
+                  <input
+                    className="h-[59px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] text-lg placeholder:text-[#898989]"
+                    type="email"
+                    placeholder="Email"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1 block text-base leading-7">Message*</span>
+                  <textarea
+                    className="h-[190px] w-full rounded-[14px] border border-[#191A23] bg-white px-[30px] py-[18px] text-lg placeholder:text-[#898989]"
+                    placeholder="Message"
+                  />
+                </label>
+                <button className="h-[68px] w-full rounded-[14px] bg-[#191A23] px-8 text-xl font-normal text-white transition hover:opacity-90">
+                  Send Message
+                </button>
+              </form>
+            </div>
+            <img
+              src="/assets/Contact-Us-Illustration.svg"
+              alt=""
+              className="absolute right-[-220px] top-1/2 hidden w-[692px] -translate-y-1/2 md:block"
+            />
           </div>
         </section>
 
         <footer className="animate-section rounded-t-[45px] bg-[#191A23] px-8 py-10 text-white md:px-[60px] md:py-[55px]">
-          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <img src="/assets/Footer-Logo.svg" alt="Positivus" className="h-7 w-auto" />
+          <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <img src="/assets/Footer-Logo.svg" alt="Positivus" className="h-[29px] w-[180px]" />
             <nav>
-              <ul className="flex flex-wrap gap-6 text-lg underline">
+              <ul className="flex flex-wrap items-center gap-[40px] text-lg underline">
                 {navItems.map((item) => (
                   <li key={item}>
                     <a href="#">{item}</a>
@@ -473,19 +596,22 @@ function App() {
               <img src="/assets/Footer-logo-Twitter.svg" alt="Twitter" className="h-[30px] w-[30px]" />
             </div>
           </div>
-          <div className="mb-10 grid gap-8 border-b border-white pb-10 md:grid-cols-2">
+          <div className="mb-[50px] grid gap-8 border-b border-white pb-[50px] md:grid-cols-[332px_1fr] md:items-start md:gap-[154px]">
             <div>
-              <p className="mb-6 inline-block rounded-[7px] bg-[#B9FF66] px-[7px] py-1 text-xl text-[#191A23]">
+              <p className="mb-[53px] inline-block rounded-[7px] bg-[#B9FF66] px-[7px] py-1 text-xl text-[#191A23]">
                 Contact us:
               </p>
-              <p className="mb-5 text-lg">Email: info@positivus.com</p>
-              <p className="mb-5 text-lg">Phone: 555-567-8901</p>
+              <p className="mb-[23px] text-lg">Email: info@positivus.com</p>
+              <p className="mb-[23px] text-lg">Phone: 555-567-8901</p>
               <p className="text-lg">Address: 1234 Main St<br />Moonstone City, Stardust State 12345</p>
             </div>
-            <div className="rounded-[14px] bg-[#292A32] p-[58px_40px]">
-              <div className="grid gap-5 md:grid-cols-[1fr_auto]">
-                <input className="rounded-[14px] border border-white bg-transparent px-[35px] py-5 text-lg text-white placeholder:text-white/70" placeholder="Email" />
-                <button className="rounded-[14px] bg-[#B9FF66] px-[35px] py-5 text-xl font-medium text-[#191A23]">
+            <div className="rounded-[14px] bg-[#292A32] px-10 py-[58px]">
+              <div className="grid gap-5 md:grid-cols-[285px_249px]">
+                <input
+                  className="h-[67px] rounded-[14px] border border-white bg-transparent px-[35px] text-lg text-white placeholder:text-white/70"
+                  placeholder="Email"
+                />
+                <button className="h-[68px] rounded-[14px] bg-[#B9FF66] px-[35px] text-xl font-medium text-[#191A23]">
                   Subscribe to news
                 </button>
               </div>
@@ -493,7 +619,9 @@ function App() {
           </div>
           <div className="flex flex-col gap-4 text-lg md:flex-row md:items-center md:gap-10">
             <p>© 2023 Positivus. All Rights Reserved.</p>
-            <a href="#" className="underline">Privacy Policy</a>
+            <a href="#" className="underline">
+              Privacy Policy
+            </a>
           </div>
         </footer>
       </main>
